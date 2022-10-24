@@ -6,8 +6,8 @@ const arrayImg = [
   '04.jpg',
   '05.jpg',
 ]
-
-let timeInterval = 1 ;
+// CREATO UN INTERVALLO PER SCEGLIERE AUTOMATICAMENTE OGNI QUANTO DEVONO CAMBIARE LE IMG
+let timeInterval = 2 ;
 
 // "CHIAMO" I MIEI CONTENITORI DELLE IMG
 const containerImgLg = document.querySelector('.img-lg');
@@ -37,6 +37,9 @@ for(let i = 0; i < arrayImg.length; i++){
   containerImgXs.innerHTML += imgXs;
 }
 
+// PRENDO IL COINTAINER CHE UTILIZZERO' PER L'OVER
+const carousel = document.querySelector('.carousel');
+
 // CREO LA SITUAZIONE DI DEFAULT CHE MI OCCORRE:
 // PRENDO I CONTENITORI CHE MI SERVIRANNO
 const arrayImgLg = document.getElementsByClassName('xl');
@@ -51,22 +54,33 @@ arrayImgXs[counterImg].classList.add('active');
 // CREO DUE COSTANTI CON I MIEI BOTTONI PER SCROLLARE LE IMMAGINI
 const up = document.querySelector('.btn.up');
 const down = document.querySelector('.btn.down');
+// CREO LA FUNZIONE TIMING PER FAR SI CHE GIRI DA SOLO 
 let startTiming;
 
 
-
+// CREATO UN LOOP CHE MI FA GIRARE LE IMG NEL CAROSELLO AUTOMATICAMENTE
 startTiming = setInterval(function(){
 upDown(true);
 }, timeInterval * 1000)
 
+// CREATO UN EVENTO CHE QUANDO SONO SOPRA IL CAROSELLO MI STOPPA IL TIMING E QUINDI NON SCORRONO PIU' DA SOLE E POSSO ANCHE PREMERE I MIEI UP E DOWN PER FARLE SCORRERE DA SOLO SENZA CHE SUCCEDA NULLA
+carousel.addEventListener('mouseover', function(){
+  clearInterval(startTiming);
+})
+
+// CREATO UN ALTRO EVENTO ALL'USCITA DEL MOUSE SUL CAROSELLO CHE MI FA RIPARTIRE IL LOOP AUTOMATICO 
+carousel.addEventListener('mouseout', function(){
+startTiming = setInterval(function(){
+  upDown(true);
+  }, timeInterval * 1000)
+})
+
 down.addEventListener('click',function(){
   upDown(true);
-  clearInterval(startTiming);
 })
 
 up.addEventListener('click', function (){
   upDown(false);
-  clearInterval(startTiming);
 })
 
 
