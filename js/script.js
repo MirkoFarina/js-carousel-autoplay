@@ -59,9 +59,7 @@ let startTiming;
 
 
 // CREATO UN LOOP CHE MI FA GIRARE LE IMG NEL CAROSELLO AUTOMATICAMENTE
-startTiming = setInterval(function(){
-upDown(true);
-}, timeInterval * 1000)
+startCarouselAuto();
 
 // CREATO UN EVENTO CHE QUANDO SONO SOPRA IL CAROSELLO MI STOPPA IL TIMING E QUINDI NON SCORRONO PIU' DA SOLE E POSSO ANCHE PREMERE I MIEI UP E DOWN PER FARLE SCORRERE DA SOLO SENZA CHE SUCCEDA NULLA
 carousel.addEventListener('mouseover', function(){
@@ -70,10 +68,8 @@ carousel.addEventListener('mouseover', function(){
 
 // CREATO UN ALTRO EVENTO ALL'USCITA DEL MOUSE SUL CAROSELLO CHE MI FA RIPARTIRE IL LOOP AUTOMATICO 
 carousel.addEventListener('mouseout', function(){
-startTiming = setInterval(function(){
-  upDown(true);
-  }, timeInterval * 1000)
-})
+  startCarouselAuto();
+  })
 
 down.addEventListener('click',function(){
   upDown(true);
@@ -105,8 +101,9 @@ function upDown(isDown){
   arrayImgXs[counterImg].classList.add('active')
 }
 
-
-
-
-
+function startCarouselAuto(){
+  startTiming = setInterval(function(){
+    upDown(true);
+  }, timeInterval * 1000);
+} 
 
